@@ -1,4 +1,5 @@
 from talon import Module, actions
+from .clipboard import *
 
 module = Module()
 
@@ -24,4 +25,19 @@ class Actions:
         actions.insert(cell_location)
         actions.key('enter')
 
+    def google_sheets_go_to_row(number: int):
+        '''Moves to the specified row'''
+        actions.user.google_sheets_toggle_movement_tool()
+        current_cell: str = get_selected_text_using_clipboard()
+        current_column: str = get_column(current_cell)
+        actions.insert(current_column + str(number))
+        actions.key('enter')
 
+
+def get_column(current_cell: str) -> str:
+    row_start_index: int = 0
+    for character in current_cell:
+        if character.isdigit():
+            break
+        row_start_index += 1
+    return current_cell[:row_start_index]
