@@ -10,7 +10,7 @@ def google_sheets_direction(m) -> str:
 selection_sleep_setting = module.setting(
     'google_sheets_selection_delay',
     type = float,
-    default = 0.1,
+    default = 0.02,
     desc = 'How long to pause google sheets commands when selecting. Try increasing this if commands that use selecting are not working properly.'
 )
 
