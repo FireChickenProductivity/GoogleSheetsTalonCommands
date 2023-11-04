@@ -1,4 +1,4 @@
-from talon import Module, actions
+from talon import Module, actions, settings
 
 module = Module()
 
@@ -7,25 +7,29 @@ def google_sheets_direction(m) -> str:
     '''A direction in which to perform a google sheets command'''
     return str(m[0])
 
-selection_sleep_setting = module.setting(
-    'google_sheets_selection_delay',
+selection_sleep_setting_setting_name = 'google_sheets_selection_delay'
+selection_sleep_setting = 'user.' + selection_sleep_setting_setting_name
+module.setting(
+    selection_sleep_setting_setting_name,
     type = float,
     default = 0.02,
     desc = 'How long to pause google sheets commands when selecting. Try increasing this if commands that use selecting are not working properly.'
 )
 
 def wait_selection_delay():
-    actions.sleep(selection_sleep_setting.get())
+    actions.sleep(settings.get(selection_sleep_setting))
 
-menu_interaction_sleep_setting = module.setting(
-    'google_sheets_menu_delay',
+menu_interaction_sleep_setting_setting_name = 'google_sheets_menu_delay'
+menu_interaction_sleep_setting = 'user.' + menu_interaction_sleep_setting_setting_name
+module.setting(
+    menu_interaction_sleep_setting_setting_name,
     type = float,
     default = 0.1,
     desc = 'How long to pause google sheets commands when interacting with a menu.'
 )
 
 def wait_menu_interaction_delay():
-    actions.sleep(menu_interaction_sleep_setting.get())
+    actions.sleep(settings.get(menu_interaction_sleep_setting))
 
 @module.action_class
 class Actions:
